@@ -1,5 +1,7 @@
 # Getting Started
-
+### Detalhes importantes com a versão do RabbitMQ:
+* As versões superiores a 3.10 suportam a utilização do quorum
+* As versões inferiores a 3.10 não suportam a utilização do quorum e devem ser retirar da criação da fila. Essa opção que está na classe RabbitConfiguration
 ### Reference Documentation
 For further reference, please consider the following sections:
 

@@ -2,6 +2,7 @@ package br.com.egc.api.spring.rabbitmq.retry.configuration;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.amqp.core.TopicExchange;
@@ -20,8 +21,8 @@ public class RabbitConfiguration {
     private Integer retryDelay;
 
     @Bean
-    TopicExchange exchange() {
-        return new TopicExchange(EXCHANGE_NAME);
+    DirectExchange exchange() {
+        return new DirectExchange(EXCHANGE_NAME);
     }
 
     @Bean
@@ -51,17 +52,17 @@ public class RabbitConfiguration {
     }
 
     @Bean
-    Binding mainBinding(Queue mainQueue, TopicExchange exchange) {
+    Binding mainBinding(Queue mainQueue, DirectExchange exchange) {
         return BindingBuilder.bind(mainQueue).to(exchange).with(MAIN_ROUTING_KEY);
     }
 
     @Bean
-    Binding retryBinding(Queue retryQueue, TopicExchange exchange) {
+    Binding retryBinding(Queue retryQueue, DirectExchange exchange) {
         return BindingBuilder.bind(retryQueue).to(exchange).with(RETRY_QUEUE);
     }
 
     @Bean
-    Binding undeliveredBinding(Queue undeliveredQueue, TopicExchange exchange) {
+    Binding undeliveredBinding(Queue undeliveredQueue, DirectExchange exchange) {
         return BindingBuilder.bind(undeliveredQueue).to(exchange).with(UNDELIVERED_QUEUE);
     }
 }
